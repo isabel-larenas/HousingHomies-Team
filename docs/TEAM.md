@@ -33,10 +33,11 @@ Below is a recap of each member's **major contributions** to the project.
 ## Laasya Gattu
 - Created and deployed the **first machine learning model** (linear regression) for the student user persona
     - **Predicts overall life satisfaction level** based on environment and location factors such as crime, noise, pollution, housing price index, and degree of urbanisation
-    - Conducted all initial cleaning, EDA, data vis, and merging of the Eurostat datasets
-    - Added **CRUD routes** to the Flask API for student train, test, prediction, and params
-- Created the **Streamlit page for the ML model** including sliders for user inputs, an interactive heatmap to view best accommodating countries for the user, and a table for countries ranked by satisfaction score.
-- Created the **Streamlit page for the student persona Favorites page** for saving and viewing favorite listings; added the corresponding favorites table to the SQL script and CRUD routes
+    - Conducted all initial cleaning, EDA, data vis, and merging of the Eurostat datasets in a Jupyter notebook `student_linreg.ipynb`
+    - Created the python script to train, test and run predictions in `student_linreg.py`
+    - Added **CRUD routes** to the Flask API for student train, test, prediction, and params in `prediction.py`
+- Created the **Streamlit page for the ML model** including sliders for user inputs, an interactive heatmap to view best accommodating countries for the user, and a table for countries ranked by satisfaction score (`04_student_pred.py`)
+- Created the **Streamlit page for the student persona Favorites page** for saving and viewing favorite listings (`02_view_saved_listings.py`); added the corresponding favorites table to the SQL script and CRUD routes
 - Contributed to design of the Streamlit with **Home page layouts** for each of the user personas
 - Contributed to development of **housing deprivation ML model**
 
