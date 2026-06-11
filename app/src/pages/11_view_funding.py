@@ -25,15 +25,16 @@ try:
                 countries = ["All"] + sorted(list(set(f["country_name"] for f in data if "country_name" in f)))
                 selected_country = st.selectbox("Filter by Country", countries, key = "funding_country")
 
-            with col2:
-                agencies = ["All"] + sorted(list(set(f["agency"] for f in data if "agency" in f)))
-                selected_agency = st.selectbox("Filter by Agency", agencies, key = "funding_agency")
-
             df = pd.DataFrame(data)[["country_name", "agency", "program", "amount", "year"]]
             df.columns = ["Country", "Agency", "Program", "Amount (€)", "Year"]
 
             if selected_country != "All":
                 df = df[df["Country"] == selected_country]
+
+            with col2:
+                agencies = ["All"] + sorted(list(set(df["Agency"].tolist())))
+                selected_agency = st.selectbox("Filter by Agency", agencies, key = "funding_agency")
+
             if selected_agency != "All":
                 df = df[df["Agency"] == selected_agency]
 
