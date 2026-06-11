@@ -14,7 +14,7 @@ SideBarLinks()
 
 BASE = "http://web-api:4000/housing"
 
-st.subheader('Add listing')
+st.title('Add listing')
 with st.container(border=True):
     title = st.text_input("Listing Title*")
     city = st.text_input('City*')

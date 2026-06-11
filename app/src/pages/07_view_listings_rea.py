@@ -6,7 +6,7 @@ st.set_page_config(page_title="View Listings", layout='wide')
 
 SideBarLinks()
 
-st.header('Available listings')
+st.title('Available listings')
 
 col1, col2, col3, col4, col5 = st.columns(5)
 

@@ -120,7 +120,7 @@ with col1:
                                 placeholder="Select user", label_visibility='collapsed')
 
 with col2:
-    ga_login = st.button('Login as a government agency worker', type='primary', use_container_width=True)
+    ga_login = st.button('Login as a Government Agency Manager', type='primary', use_container_width=True)
 
 if ga_login:
     if selected_name_ga is None:
