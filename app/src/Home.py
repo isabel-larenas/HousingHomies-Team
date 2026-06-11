@@ -35,7 +35,54 @@ SideBarLinks(show_home=True)
 
 logger.info("Loading the Home page of the app")
 
-st.title('EuroHome')
+#st.title('EuroHome')
+
+
+
+st.markdown("""
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+        @keyframes dropIn {
+            from { transform: translateY(-150px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideLeft {
+            from { transform: translateX(-150px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideRight {
+            from { transform: translateX(150px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes bounceIn {
+            0% { transform: translateY(-80px); opacity: 0; }
+            60% { transform: translateY(15px); opacity: 1; }
+            80% { transform: translateY(-8px); }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .title-container { display: flex; justify-content: center; align-items: center; margin: 2rem 0; }
+        .title-container span { font-family: 'Cinzel', serif; font-size: 4rem; font-weight: 700; color: #1D3461; opacity: 0; display: inline-block; }
+        .ur  { animation: slideLeft  1s ease 1.2s   forwards; }
+        .hm  { animation: slideRight 1s ease 1.2s   forwards; }
+        .e   { animation: dropIn    1.2s ease 1.8s   forwards; }
+        .o   { animation: dropIn    1.2s ease 1.8s   forwards; }
+        .ico { animation: bounceIn  0.8s ease 3.2s forwards; margin-left: 16px; }
+    </style>
+    <div class="title-container">
+        <span class="e">E</span>
+        <span class="ur">ur</span>
+        <span class="o">o</span>
+        <span class="hm">Home</span>
+        <span class="ico">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="#1D3461">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+        </span>
+    </div>
+""", unsafe_allow_html = True)
+
+
+
 st.write('###### Welcome to EuroHome! Eurohome is a web-app designed to help ' \
 'students, real estate agents, and government agencies ' \
 'with all aspects of the housing market in the EU. Users can view available listings, manage their budgets,'
