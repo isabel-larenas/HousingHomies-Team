@@ -76,6 +76,7 @@ CREATE TABLE reviews (
 CREATE TABLE favorites (
     user_id INT,
     listing_id INT,
+    saved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, listing_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id),
     FOREIGN KEY (listing_id) REFERENCES listing(listing_id)

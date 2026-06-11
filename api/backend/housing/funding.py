@@ -1,9 +1,9 @@
-from flask import jsonify, request, current_app
-from backend.housing.housing_routes01 import housing_bp
+from flask import Blueprint, jsonify, request, current_app
 from backend.db_connection import get_db
 from backend.utils import error_response
 from mysql.connector import Error
-import requests
+
+funding_bp = Blueprint("funding", __name__)
 
 # Variable name includes the domain (ngo_bp) so it stays readable when
 # imported alongside other blueprints (e.g. `from ... import ngo_bp, donor_bp`).
@@ -11,7 +11,7 @@ import requests
 
 # Funding routes
 # Read Funding
-@housing_bp.route("/funding", methods=["GET"])
+@funding_bp.route("/funding", methods=["GET"])
 def get_funding():
     current_app.logger.info('GET /housing/funding')
     try:
@@ -51,7 +51,7 @@ def get_funding():
         return error_response(str(e))
 
 #Create a new funding record
-@housing_bp.route("/funding", methods=["POST"])
+@funding_bp.route("/funding", methods=["POST"])
 def create_funding():
     current_app.logger.info('POST /housing/funding')
     try:
@@ -87,9 +87,9 @@ def create_funding():
 # Update an existing funding record
 # Can update any field except funding_id
 # Example: PUT /housing/funding/1 with JSON body containing fields to update
-@housing_bp.route("/housing/funding/<int:funding_id>", methods=["PUT"])
+@funding_bp.route("/funding/<int:funding_id>", methods=["PUT"])
 def update_funding(funding_id):
-    current_app.logger.info(f'PUT /housing/funding/{funding_id}')
+    current_app.logger.info(f'PUT /funding/{funding_id}')
     try:
         data = request.get_json()
 
@@ -118,9 +118,9 @@ def update_funding(funding_id):
 
 # Delete a funding record
 # Example: DELETE /housing/funding/1
-@housing_bp.route("/housing/funding/<int:funding_id>", methods=["DELETE"])
+@funding_bp.route("/funding/<int:funding_id>", methods=["DELETE"])
 def delete_funding(funding_id):
-    current_app.logger.info(f'DELETE /housing/funding/{funding_id}')
+    current_app.logger.info(f'DELETE /funding/{funding_id}')
     try:
         with get_db().cursor(dictionary=True) as cursor:
             cursor.execute("SELECT funding_id FROM funding WHERE funding_id = %s", (funding_id))
@@ -138,9 +138,9 @@ def delete_funding(funding_id):
 
 
 
-@housing_bp.route("/funding-draft", methods=["POST"])
+@funding_bp.route("/funding-draft", methods=["POST"])
 def create_funding_draft():
-    current_app.logger.info('POST /housing/funding-draft')
+    current_app.logger.info('POST /funding-draft')
     try:
         data = request.get_json()
 
@@ -164,9 +164,9 @@ def create_funding_draft():
         return error_response(str(e))
 
 
-@housing_bp.route("/funding-draft", methods=["GET"])
+@funding_bp.route("/funding-draft", methods=["GET"])
 def get_funding_drafts():
-    current_app.logger.info('GET /housing/funding-draft')
+    current_app.logger.info('GET /funding-draft')
     try:
         user_id = request.args.get("user_id")
         query = """
@@ -190,9 +190,9 @@ def get_funding_drafts():
         return error_response(str(e))
     
 
-@housing_bp.route("/funding-draft/<int:draft_id>", methods = ["PUT"])
+@funding_bp.route("/funding-draft/<int:draft_id>", methods = ["PUT"])
 def update_funding_draft(draft_id):
-    current_app.logger.info(f'PUT /housing/funding-draft/{draft_id}')
+    current_app.logger.info(f'PUT /funding-draft/{draft_id}')
     try:
         data = request.get_json()
         allowed = ["program", "amount", "indicators_targeted", "demographics_targeted", "description", "country_id"]
@@ -211,9 +211,9 @@ def update_funding_draft(draft_id):
         return error_response(str(e))
 
 
-@housing_bp.route("/funding-draft/<int:draft_id>", methods = ["DELETE"])
+@funding_bp.route("/funding-draft/<int:draft_id>", methods = ["DELETE"])
 def delete_funding_draft(draft_id):
-    current_app.logger.info(f'DELETE /housing/funding-draft/{draft_id}')
+    current_app.logger.info(f'DELETE /funding-draft/{draft_id}')
     try:
         with get_db().cursor() as cursor:
             cursor.execute("DELETE FROM funding_draft WHERE draft_id = %s", (draft_id,))

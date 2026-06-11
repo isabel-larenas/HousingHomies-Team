@@ -85,7 +85,7 @@ if st.button("Predict for all countries", type="primary", use_container_width=Tr
     }
 
     try:
-        response = requests.post("http://web-api:4000/housing/student/predict", json=payload)
+        response = requests.post("http://web-api:4000/housing/student/prediction", json=payload)
         response.raise_for_status()
         data = response.json()
         results = data.get("all_countries", [])

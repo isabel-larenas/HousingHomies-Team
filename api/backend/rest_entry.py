@@ -4,11 +4,12 @@ import os
 import logging
 from backend.db_connection import init_app as init_db
 from backend.simple.simple_routes import simple_routes
-from backend.housing.housing_routes01 import housing_bp  # defines housing_bp
-import backend.housing.housing_routes02_listing
-import backend.housing.housing_routes03_reviews
-import backend.housing.housing_routes04_funding
-import backend.housing.housing_routes10_stats
+from backend.housing.housing import housing_bp
+from backend.housing.listing import listing_bp
+from backend.housing.reviews import reviews_bp
+from backend.housing.funding import funding_bp
+from backend.housing.stats import stats_bp
+from backend.housing.prediction import prediction_bp
 
 def create_app():
     app = Flask(__name__)
@@ -40,6 +41,11 @@ def create_app():
     # simple_routes has no prefix intentionally — it serves root-level demo routes (/, /playlist, etc.)
     app.logger.info("create_app(): registering blueprints")
     app.register_blueprint(simple_routes)
-    app.register_blueprint(housing_bp, url_prefix="/housing")
+    app.register_blueprint(housing_bp, url_prefix = "/housing")
+    app.register_blueprint(listing_bp, url_prefix = "/housing")
+    app.register_blueprint(reviews_bp, url_prefix = "/housing")
+    app.register_blueprint(funding_bp, url_prefix = "/housing")
+    app.register_blueprint(stats_bp, url_prefix = "/housing")
+    app.register_blueprint(prediction_bp, url_prefix = "/housing")
 
     return app

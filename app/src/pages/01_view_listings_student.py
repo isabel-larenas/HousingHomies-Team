@@ -5,7 +5,7 @@ from modules.nav import SideBarLinks
 st.set_page_config(layout='wide')
 SideBarLinks()
 
-st.header('Available listings')
+st.header('Available Listings')
 
 col1, col2, col3, col4, col5 = st.columns(5)
 
@@ -18,7 +18,7 @@ with col2:
                                 options=["All", "House", "Apartment", "Studio Apartment", "Townhouse"])
 with col3:
     price_filter = st.number_input("Max Price (€)", 
-                                   min_value=0, max_value=3000, value=1500, step=100)
+                                   min_value=0, max_value=4000, value=4000, step=100)
 with col4:
     university_filter = st.selectbox("Associated Uni", 
                                 options=["All"] + [u['university_name'] for u 
@@ -67,6 +67,8 @@ else:
                 avg = round(total / num, 2) if num > 0 else 0
                 if avg > 0:
                     st.subheader(f'{avg}/5.0')
+                    stars = "⭐" * round(avg)
+                    st.write(stars)
 
             col1, col2, col3 = st.columns([3, 3, 2])
 
@@ -84,3 +86,10 @@ else:
                     st.session_state['listing_id'] = listing['listing_id']
                     st.session_state['title'] = listing['title']
                     st.switch_page('pages/03_view_reviews.py')
+
+                if st.button("Save Listing ❤️", key=f"save_{listing['listing_id']}"):
+                    requests.post('http://web-api:4000/housing/favorites', json={
+                        "listing_id": listing['listing_id'],
+                        "user_id": st.session_state.get('user_id')
+                    })
+                    st.switch_page('pages/02_view_saved_listings.py')

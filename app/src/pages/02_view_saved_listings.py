@@ -14,8 +14,8 @@ if not user_id:
     st.warning("Please log in to view your saved listings.")
     st.stop()
 
-favorites = requests.get('http://web-api:4000/housing/favorites', 
-                         params={"user_id": user_id}).json()
+favorites = requests.get('http://web-api:4000/listing/favorites', 
+                         params={"user_id": user_id})
 
 if not favorites:
     st.info("You haven't saved any listings yet.")
@@ -23,7 +23,7 @@ if not favorites:
 
 for listing in favorites:
     
-    reviews = requests.get('http://web-api:4000/housing/reviews',
+    reviews = requests.get('http://web-api:4000/listing/reviews',
                            params={"listing_id": listing['listing_id']}).json()
     total, num = 0, 0
     for review in reviews:
@@ -59,7 +59,7 @@ for listing in favorites:
                 st.switch_page('pages/03_view_reviews.py')
 
             if st.button("🗑 Remove", key=f"remove_{listing['listing_id']}"):
-                requests.delete('http://web-api:4000/housing/favorites', json={
+                requests.delete('http://web-api:4000/listing/favorites', json={
                     "listing_id": listing['listing_id'],
                     "user_id": user_id
                 })

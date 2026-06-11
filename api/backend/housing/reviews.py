@@ -1,16 +1,16 @@
-from flask import jsonify, request, current_app
-from backend.housing.housing_routes01 import housing_bp
+from flask import Blueprint, jsonify, request, current_app
 from backend.db_connection import get_db
 from backend.utils import error_response
 from mysql.connector import Error
-import requests
+
+reviews_bp = Blueprint("reviews", __name__)
 
 # Variable name includes the domain (ngo_bp) so it stays readable when
 # imported alongside other blueprints (e.g. `from ... import ngo_bp, donor_bp`).
 
 # Reviews routes
 # Read review
-@housing_bp.route("/reviews", methods=["GET"])
+@reviews_bp.route("/reviews", methods=["GET"])
 def get_reviews():
     current_app.logger.info('GET /housing/reviews')
     try:
@@ -37,7 +37,7 @@ def get_reviews():
         return error_response(str(e))
     
 #Create a new review
-@housing_bp.route("/reviews", methods=["POST"])
+@reviews_bp.route("/reviews", methods=["POST"])
 def create_review():
     current_app.logger.info('POST /housing/reviews')
     try:
@@ -71,7 +71,7 @@ def create_review():
 # Update an existing reviews's information
 # Can update any field except review_id
 # Example: PUT /housing/review/1 with JSON body containing fields to update
-@housing_bp.route("/review/<int:review_id>", methods=["PUT"])
+@reviews_bp.route("/review/<int:review_id>", methods=["PUT"])
 def update_review(review_id):
     current_app.logger.info(f'PUT /housing/review/{review_id}')
     try:
@@ -102,7 +102,7 @@ def update_review(review_id):
 
 # Delete a review
 # Example: DELETE /housing/review/1
-@housing_bp.route("/review/<int:review_id>", methods=["DELETE"])
+@reviews_bp.route("/review/<int:review_id>", methods=["DELETE"])
 def delete_review(review_id):
     current_app.logger.info(f'DELETE /housing/review/{review_id}')
     try:

@@ -21,11 +21,14 @@ st.write(
     """
 This model predicts each European country's **housing deprivation rate** which is the percent of people living in overcrowded housing or poor living conditions based on socioeconomic indicators:
 
-- immigration
-- housing-cost overburden
-- GDP per capita
-- population density
-- unemployment
+- **immigration**: total number of people that immigrated to the country in a given year
+- **housing-cost overburden**: percent of the population spending more than 40% of their 
+  disposable income on housing costs like rent, utilities, and maintenance
+- **GDP per capita**: the total economic output of a country divided by its population, 
+  used as a measure of a country's overall wealth and standard of living
+- **population density**: the number of people living per square kilometer in a country
+- **unemployment rate**: percent of the working-age population that is actively looking 
+  for work but does not have a job
 """
 )
 
@@ -91,17 +94,11 @@ country_coordinates = {
 
 st.divider()
 
-# ── Europe heatmap ────────────────────────────────────────────────────────────
+# Europe heatmap ────────────────────────────────────────────────────────────
 st.subheader("Predicted Housing Deprivation Across Europe")
-st.caption(
-    '''
-    Darker countries on the map have higher predicted deprivation and the strongest case for housing funding.
+st.markdown('Darker countries on the map have higher predicted deprivation and the <u>**strongest case for housing funding.**</u>', unsafe_allow_html=True)
+st.caption("*Predictions use each country's most recent year of data.*")
 
-    *Predictions use each country's most recent year of data.*
-    '''
-)
-
-# Higher predicted deprivation = greater need: shade red (high) to green (low).
 cmap = plt.get_cmap('RdYlGn_r')
 norm = mcolors.Normalize(vmin=df["predicted_deprivation"].min(), vmax=df["predicted_deprivation"].max())
 
@@ -153,18 +150,20 @@ try:
 except Exception as e:
     st.error(f"Error rendering map: {e}")
 
-# ── Where funding is most needed ───────────────────────────────────────────────
+# Where funding is most needed ───────────────────────────────────────────────
 st.subheader("Countries Most In Need of Housing Funding")
 
 ranked = df.sort_values("predicted_deprivation", ascending=False).reset_index(drop=True)
 ranked.index += 1
 
 st.dataframe(
-    ranked.rename(columns={
+    ranked.drop(columns=["deprivation_rate"]).rename(columns={
         "geo": "Country",
-        "predicted_deprivation": "Predicted deprivation (%)",
-        "deprivation_rate": "Latest measured rate (%)",
-        "year": "Data year",
+        "predicted_deprivation": "Predicted Housing Deprivation",
+        "year": "Data Year",
     }),
     use_container_width=True,
+    column_config={
+        "Predicted Housing Deprivation": st.column_config.NumberColumn(format="%.2f%%"),
+    },
 )

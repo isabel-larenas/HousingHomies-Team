@@ -146,7 +146,7 @@ def predict(immigration_count, overburden_rate, gdp_per_capita, population_densi
     X_scaled = (X_input - scaler_mean) / scaler_std
 
     input_array = np.concatenate([[1.0], X_scaled])
-    prediction  = float(np.dot(b, input_array))
+    prediction  = float(np.clip(np.dot(b, input_array), 0, 100))
 
     current_app.logger.info(f'government_linreg predict={prediction:.4f}')
     return prediction
@@ -174,7 +174,10 @@ def predict_all_countries():
     X = latest[FEATURE_COLS].to_numpy().astype(float)
     X_scaled = (X - scaler_mean) / scaler_std
     X_b = np.column_stack([np.ones(len(X_scaled)), X_scaled])
-    latest["predicted_deprivation"] = X_b @ b
+    # Clamp to the valid percentage range: linear regression is unbounded and can
+    # predict <0% (or >100%) for countries whose indicators extrapolate past the
+    # data, which is meaningless for a deprivation rate.
+    latest["predicted_deprivation"] = np.clip(X_b @ b, 0, 100)
 
     latest = latest.sort_values("predicted_deprivation", ascending=False)
 

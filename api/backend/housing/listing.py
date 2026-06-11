@@ -1,17 +1,15 @@
-from flask import jsonify, request, current_app
-from backend.housing.housing_routes01 import housing_bp
+from flask import Blueprint, jsonify, request, current_app
 from backend.db_connection import get_db
 from backend.utils import error_response
 from mysql.connector import Error
-import requests
 
+listing_bp = Blueprint("listing", __name__)
 # Variable name includes the domain (ngo_bp) so it stays readable when
 # imported alongside other blueprints (e.g. `from ... import ngo_bp, donor_bp`).
 
 
-
 # --- listing -------------------------------
-@housing_bp.route("/listing", methods=["GET"])
+@listing_bp.route("/listing", methods=["GET"])
 def get_listing():
     current_app.logger.info('GET /housing/listing')
     try:
@@ -65,7 +63,7 @@ def get_listing():
         return error_response(str(e))
 
 #Create a listing
-@housing_bp.route("/listing", methods=["POST"])
+@listing_bp.route("/listing", methods=["POST"])
 def create_listing():
     current_app.logger.info('POST /housing/listing')
     try:
@@ -103,7 +101,7 @@ def create_listing():
 # # Update an existing NGO's information
 # # Can update any field except NGO_ID
 # # Example: PUT /ngo/ngos/1 with JSON body containing fields to update
-@housing_bp.route("/listing/<int:listing_id>", methods=["PUT"])
+@listing_bp.route("/listing/<int:listing_id>", methods=["PUT"])
 def update_listing(listing_id):
     current_app.logger.info(f'PUT /housing/listing/{listing_id}')
     try:
@@ -135,7 +133,7 @@ def update_listing(listing_id):
 
 # Delete a listing
 # Example: DELETE /housing/listing/1
-@housing_bp.route("/listing/<int:listing_id>", methods=["DELETE"])
+@listing_bp.route("/listing/<int:listing_id>", methods=["DELETE"])
 def delete_listing(listing_id):
     current_app.logger.info(f'DELETE /housing/listing/{listing_id}')
     try:
@@ -155,7 +153,7 @@ def delete_listing(listing_id):
 
 
 # Saves (POST) a listing to favorites
-@housing_bp.route('/favorites', methods=['POST'])
+@listing_bp.route('/favorites', methods=['POST'])
 def save_favorite():
     current_app.logger.info('POST /favorites')
     data = request.json
@@ -169,7 +167,7 @@ def save_favorite():
     return jsonify({'message': 'Saved'}), 201
 
 # Reads (GET) a listing from favorites
-@housing_bp.route('/favorites', methods=['GET'])
+@listing_bp.route('/favorites', methods=['GET'])
 def get_favorites():
     current_app.logger.info('GET /favorites')
     user_id = request.args.get('user_id')
@@ -181,5 +179,20 @@ def get_favorites():
             LEFT JOIN country co ON l.country_id = co.country_id
             LEFT JOIN university u ON u.university_id = l.associated_university_id
             WHERE f.user_id = %s
+            ORDER BY f.saved_at DESC
         ''', (user_id,))
         return jsonify(cursor.fetchall()), 200
+
+# Deletes (DELETE) a listing from favorites
+@listing_bp.route('/favorites', methods=['DELETE'])
+def delete_favorite():
+    current_app.logger.info('DELETE /favorites')
+    data = request.json
+    with get_db().cursor(dictionary=True) as cursor:
+        cursor.execute(
+            'DELETE FROM favorites WHERE user_id = %s AND listing_id = %s',
+            (data['user_id'], data['listing_id'])
+        )
+    get_db().commit()
+    current_app.logger.info(f"Removed listing {data['listing_id']} for user {data['user_id']}")
+    return jsonify({'message': 'Deleted'}), 200
