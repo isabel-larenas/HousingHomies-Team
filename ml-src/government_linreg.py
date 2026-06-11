@@ -12,12 +12,13 @@ FEATURE_COLS = [
 ]
 
 import os
-# This module is symlinked into api/backend/ml_models/ so the Flask backend can
-# import it as backend.ml_models.government_linreg while the source of truth
-# stays here in ml-src/. Python keeps __file__ as the symlink path, so BASE_DIR
-# resolves to the package dir and the data folder below is found correctly.
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CSV_PATH = os.path.join(BASE_DIR, "raw_project_models/merged_linreg.csv")
+import backend.ml_models
+# This module lives in ml-src/ (placed on PYTHONPATH so the backend can import
+# it as a top-level module), but its training data lives with the backend
+# package. Resolve the data dir from the backend.ml_models package location so
+# the CSV is found without moving the data or this module.
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(backend.ml_models.__file__)), "raw_project_models")
+CSV_PATH = os.path.join(DATA_DIR, "merged_linreg.csv")
 df = pd.read_csv(CSV_PATH)
 
 def line_of_best_fit(X, y):

@@ -9,6 +9,14 @@ from modules.nav import SideBarLinks
 st.set_page_config(layout = 'wide')
 SideBarLinks()
 
+if st.session_state.get("draft_saved"):
+    st.success("Draft updated successfully!")
+    st.session_state["draft_saved"] = False
+
+if st.session_state.get("draft_deleted"):
+    st.success("Draft deleted successfully!")
+    st.session_state["draft_deleted"] = False
+
 st.title("My Funding Drafts")
 st.caption("View, update, or delete your proposed funding plans.")
 
@@ -48,7 +56,7 @@ else:
                     try:
                         res = requests.delete(f"{BASE}/funding-draft/{draft_id}")
                         if res.status_code == 200:
-                            st.success("Draft deleted.")
+                            st.session_state["draft_deleted"] = True
                             st.rerun()
                         else:
                             st.error("Failed to delete.")
@@ -63,9 +71,17 @@ else:
                     new_program = st.text_input("Program Name", value = draft.get("program", ""))
                     new_amount = st.number_input("Amount (€)", value = float(draft.get("amount", 0)), min_value = 0.0, step = 1000.0)
                     new_description = st.text_area("Description", value = draft.get("description", ""))
-                    new_indicators = st.text_input("Indicators Targeted", value = draft.get("indicators_targeted", ""))
-                    new_demographics = st.text_input("Demographics Targeted", value = draft.get("demographics_targeted", ""))
-
+                    new_indicators = st.multiselect(
+                        "Indicators Targeted",
+                        ["Pollution", "Crime, Violence, and Vandalism",
+                        "Poverty", "Overcrowding", "Noise", "House Price Index", "Under-occupied"],
+                        default = [i.strip() for i in draft.get("indicators_targeted", "").split(",") if i.strip()]
+                    )
+                    new_demographics = st.multiselect(
+                        "Demographics Targeted",
+                        ["Students", "Low Income", "Elderly", "Families"],
+                        default = [d.strip() for d in draft.get("demographics_targeted", "").split(",") if d.strip()]
+                    )
                     save = st.form_submit_button("Save Changes")
                     cancel = st.form_submit_button("Cancel")
 
@@ -75,13 +91,13 @@ else:
                                 "program": new_program,
                                 "amount": new_amount,
                                 "description": new_description,
-                                "indicators_targeted": new_indicators,
-                                "demographics_targeted": new_demographics
+                                "indicators_targeted": ", ".join(new_indicators),
+                                "demographics_targeted": ", ".join(new_demographics)
                             }
                             res = requests.put(f"{BASE}/funding-draft/{draft_id}", json = payload)
                             if res.status_code == 200:
-                                st.success("Draft updated.")
                                 st.session_state[f"editing_{draft_id}"] = False
+                                st.session_state["draft_saved"] = True
                                 st.rerun()
                             else:
                                 st.error("Failed to update.")

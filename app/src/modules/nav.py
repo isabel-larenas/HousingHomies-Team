@@ -47,6 +47,9 @@ def view_funding_nav():
 def funding_drafts_nav():
     st.sidebar.page_link("pages/13_funding_drafts.py", label="My Funding Drafts", icon="📝")
 
+def funding_draft_create_nav():
+    st.sidebar.page_link("pages/15_create_funding_draft.py", label="Create Funding Draft", icon="✍️")
+
 def risk_heatmap_nav():
     st.sidebar.page_link("pages/12_risk_heatmap.py", label="Risk Heatmap", icon="🗺️")
 
@@ -112,9 +115,11 @@ def SideBarLinks(show_home=False):
             government_agency_home_nav()
             view_funding_nav()
             funding_drafts_nav()
+            funding_draft_create_nav()
             risk_heatmap_nav()
             housing_deprivation_pred_nav()
             
+
     # About link appears at the bottom for all roles
     about_page_nav()
 

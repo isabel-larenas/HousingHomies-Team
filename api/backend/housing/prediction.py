@@ -2,8 +2,8 @@ from flask import Blueprint, jsonify, request, current_app
 from backend.db_connection import get_db
 from backend.utils import error_response
 from mysql.connector import Error
-from backend.ml_models.student_linreg import train, test, predict
-from backend.ml_models.government_linreg import (
+from student_linreg import train, test, predict
+from government_linreg import (
     train as gov_train,
     test as gov_test,
     predict as gov_predict,
@@ -46,7 +46,7 @@ def test_model():
         current_app.logger.error(f'Error testing student model: {e}')
         return error_response(str(e))
  
- 
+
 # predict
 @prediction_bp.route("/student/prediction", methods=["POST"])
 def predict_satisfaction():

@@ -22,6 +22,10 @@ services:
       - ./api/.env
     environment:
       - WATCHPACK_POLLING=true
+      # ml-src is mounted at /ml-src; put it on the path so the backend can
+      # import the ML modules (student_linreg, government_linreg) directly,
+      # keeping their source of truth in ml-src/ and out of the backend package.
+      - PYTHONPATH=/ml-src
     ports:
       - 4000:4000
     restart: on-failure

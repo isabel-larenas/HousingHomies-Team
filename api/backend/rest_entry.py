@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import os
 import logging
 from backend.db_connection import init_app as init_db
-from backend.simple.simple_routes import simple_routes
 from backend.housing.housing import housing_bp
 from backend.housing.listing import listing_bp
 from backend.housing.reviews import reviews_bp
@@ -38,9 +37,7 @@ def create_app():
 
     # Register the routes from each Blueprint with the app object
     # and give a url prefix to each.
-    # simple_routes has no prefix intentionally — it serves root-level demo routes (/, /playlist, etc.)
     app.logger.info("create_app(): registering blueprints")
-    app.register_blueprint(simple_routes)
     app.register_blueprint(housing_bp, url_prefix = "/housing")
     app.register_blueprint(listing_bp, url_prefix = "/housing")
     app.register_blueprint(reviews_bp, url_prefix = "/housing")

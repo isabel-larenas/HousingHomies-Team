@@ -21,13 +21,13 @@ st.write(
     """
 This model predicts each European country's **housing deprivation rate** which is the percent of people living in overcrowded housing or poor living conditions based on socioeconomic indicators:
 
-- **immigration**: total number of people that immigrated to the country in a given year
-- **housing-cost overburden**: percent of the population spending more than 40% of their 
+- **Immigration**: total number of people that immigrated to the country in a given year
+- **Housing-cost overburden**: percent of the population spending more than 40% of their 
   disposable income on housing costs like rent, utilities, and maintenance
 - **GDP per capita**: the total economic output of a country divided by its population, 
   used as a measure of a country's overall wealth and standard of living
-- **population density**: the number of people living per square kilometer in a country
-- **unemployment rate**: percent of the working-age population that is actively looking 
+- **Population density**: the number of people living per square kilometer in a country
+- **Unemployment rate**: percent of the working-age population that is actively looking 
   for work but does not have a job
 """
 )
@@ -96,7 +96,8 @@ st.divider()
 
 # Europe heatmap ────────────────────────────────────────────────────────────
 st.subheader("Predicted Housing Deprivation Across Europe")
-st.markdown('Darker countries on the map have higher predicted deprivation and the <u>**strongest case for housing funding.**</u>', unsafe_allow_html=True)
+st.markdown('''- Darker red countries on the map have <u>**higher predicted deprivation**</u> and a <u>**stronger need for housing funding.**</u>
+- Darker green countries on the map have <u>**lower predicted deprivation**</u> and a <u>**lower need for housing funding.**</u>''', unsafe_allow_html=True)
 st.caption("*Predictions use each country's most recent year of data.*")
 
 cmap = plt.get_cmap('RdYlGn_r')

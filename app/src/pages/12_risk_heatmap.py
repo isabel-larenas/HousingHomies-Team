@@ -88,16 +88,30 @@ if not st.session_state.synced:
 col1, col2 = st.columns(2)
 
 with col1:
-    selected_year = st.selectbox(
-        "Year",
-        [str(y) for y in range(2010, 2026)],
-        index = len(range(2010, 2026)) - 1
+    indicators = list(INDICATOR_UNITS.keys())
+    indicator_type = st.selectbox(
+        "Shade Map By Indicator",
+        indicators,
+        index = indicators.index("Poverty")
     )
 
 with col2:
-    indicator_type = st.selectbox(
-        "Shade Map By",
-        list(INDICATOR_UNITS.keys())
+    try:
+        r = requests.get(
+            "http://web-api:4000/housing/social-indicator-stats",
+            params = {"social_indicator_type": indicator_type}
+        )
+        if r.status_code == 200 and r.json():
+            available_years = sorted(list(set(str(row["year"]) for row in r.json())), reverse = True)
+        else:
+            available_years = [str(y) for y in range(2010, 2026)]
+    except:
+        available_years = [str(y) for y in range(2010, 2026)]
+
+    selected_year = st.selectbox(
+        "Year",
+        available_years,
+        index = 0
     )
 
 st.divider()
@@ -133,7 +147,7 @@ with map_col:
             color_map = {row["country_name"]: get_color(row["value"]) for _, row in df.iterrows()}
 
             geo_data = requests.get(GEOJSON_URL).json()
-            m = folium.Map(location = [54.5260, 15.2551], zoom_start = 3)
+            m = folium.Map(location = [54.5260, 15.2551], zoom_start = 3.5)
             
 
             NAME_MAP = {"Czech Republic": "Czechia",
@@ -162,19 +176,26 @@ with map_col:
                 if coords:
                     folium.CircleMarker(
                         location = coords,
-                        radius = 4,
+                        radius = 6,
                         color = 'black',
                         fill = True,
                         fill_color = get_color(row["value"]),
                         fill_opacity = 1,
                         popup = folium.Popup(
-                            f"<b>{row['country_name']}</b><br>{indicator_type}: {row['value']}",
+                            f"<b>{row['country_name']}</b><br>{indicator_type}: {row['value']}%",
                             max_width = 200
                         )
                     ).add_to(m)
 
-            st_folium(m, use_container_width = True, height = 600, returned_objects = [])
+            st_folium(m, use_container_width = True, height = 900, returned_objects = [])
             st.caption("Map boundaries: leakyMirror/map-of-europe (GitHub), MIT License.")
+            map_html = m._repr_html_()
+            st.download_button(
+                label = "Download Map as HTML",
+                data = m._repr_html_(),
+                file_name = f"{indicator_type}_{selected_year}_map.html",
+                mime = "text/html"
+            )
 
         else:
             st.info("No data — try selecting a different year.")
@@ -188,7 +209,7 @@ with chart_col:
     if indicator_type == "House Price Index":
         st.caption("% change in house prices relative to the 2015 baseline. Positive = prices risen, negative = prices fallen.")
     else:
-        st.caption("Countries ranked highest to lowest.")
+        st.caption("Countries ranked highest to lowest by percentage of population impacted.")
 
     try:
         r = requests.get(
@@ -227,18 +248,36 @@ with chart_col:
             if indicator_type == "House Price Index":
                 fig.update_layout(
                     xaxis = dict(range = [-50, 150]),
-                    yaxis = dict(autorange = "reversed"),
-                    height = 600,
-                    showlegend = False
-                )
-            else:
-                fig.update_layout(
-                    yaxis = dict(autorange = "reversed"),
-                    height = 600,
-                    showlegend = False
+                    yaxis = dict(autorange = "reversed", tickfont = dict(size = 14)),
+                    height = 900,
+                    showlegend = False,
+                    coloraxis_showscale = False
                 )
 
+                fig.update_traces(
+                    hovertemplate = "<b>%{y}</b><br>%{x:.1f} " + x_label.lower() + "<extra></extra>"
+                )
+                
+            else:
+                fig.update_layout(
+                    yaxis = dict(autorange = "reversed", tickfont = dict(size = 14)),
+                    height = 900,
+                    showlegend = False,
+                    coloraxis_showscale = False
+                )
+
+                fig.update_traces(
+                    hovertemplate = "<b>%{y}</b><br>%{x:.1f} " + x_label.lower() + "<extra></extra>"
+                )
             st.plotly_chart(fig, use_container_width = True)
+
+            csv = df_rank.to_csv(index = False)
+            st.download_button(
+                label = "Download Rankings as CSV",
+                data = csv,
+                file_name = f"{indicator_type}_{selected_year}_rankings.csv",
+                mime = "text/csv"
+            )
 
         else:
             st.info("No data — try selecting a different year.")

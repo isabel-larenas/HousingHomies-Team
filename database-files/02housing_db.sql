@@ -51,7 +51,7 @@ INSERT INTO social_indicator_types (sit_id, name) VALUES
 
 -- 50 Universities
 INSERT INTO university(university_id,country_id,university_name,city_name,address) VALUES (1,19,'University of Vienna','Vienna','8538 Becker Place');
-INSERT INTO university(university_id,country_id,university_name,city_name,address) VALUES (2,1,'University libre de Bruxelles','Brussels','4546 Graceland Way');
+INSERT INTO university(university_id,country_id,university_name,city_name,address) VALUES (2,1,'Université libre de Bruxelles','Brussels','4546 Graceland Way');
 INSERT INTO university(university_id,country_id,university_name,city_name,address) VALUES (3,35,'Middle East Technical University','Ankara','2 Main Center');
 INSERT INTO university(university_id,country_id,university_name,city_name,address) VALUES (4,22,'University of Bucharest','Bucharest','17733 Crowley Place');
 INSERT INTO university(university_id,country_id,university_name,city_name,address) VALUES (5,5,'Freie Universität Berlin','Berlin','3287 Gulseth Crossing');

@@ -92,11 +92,12 @@ if st.button("Predict for all countries", type="primary", use_container_width=Tr
 
         st.divider()
         st.subheader("Predicted Life Satisfaction by Country")
+        st.write("See your predicted life satisfaction score under your chosen conditions in each country, between 0 - 10 with 0 being least satisfied and 10 being most satisfied.")
 
         df_results = pd.DataFrame(results)
         df_results.index = df_results.index + 1
         df_results.index.name = "Rank"
-        df_results.columns = ["Country", "Predicted Score"]
+        df_results.columns = ["Country", "Predicted Satisfaction Rating (0-10)"]
         st.dataframe(df_results, use_container_width=True)
 
     except requests.exceptions.ConnectionError:
