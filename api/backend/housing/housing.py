@@ -147,7 +147,6 @@ def get_university():
         return error_response(str(e))
 
 #get cities
-#get cities
 @housing_bp.route("/listing/cities", methods=["GET"])
 def get_cities():
    current_app.logger.info('GET /housing/listing/cities')

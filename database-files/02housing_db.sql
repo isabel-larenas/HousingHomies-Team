@@ -142,20 +142,20 @@ INSERT INTO user(user_id,country_id,name,role,email) VALUES (44,3,'Abbye Horstea
 INSERT INTO user(user_id,country_id,name,role,email) VALUES (49,35,'Eldin Gillimgham','Government Agency','egillimgham1c@joomla.org');
 
 -- Students
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (1,9,15,'Kacey Ivons','Student','kivons0@blogtalkradio.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (2,22,23,'Ahmed Jerche','Student','ajerche1@dot.gov');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (3,16,1,'Nessy Satchell','Student','nsatchell2@bloomberg.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (14,38,36,'Venus Landy','Student','vlandyd@domainmarket.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (18,43,25,'Leah McPike','Student','lmcpikeh@multiply.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (21,5,5,'Shantee Tippings','Student','stippingsk@tumblr.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (23,42,35,'Gar Carnalan','Student','gcarnalanm@simplemachines.org');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (26,19,13,'Thomasine Keasey','Student','tkeaseyp@cornell.edu');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (27,28,27,'Angelia Bernette','Student','abernetteq@wsj.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (29,40,14,'Lucias Rumsby','Student','lrumsbys@xrea.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (31,47,19,'Chen Pomphrett','Student','cpomphrettu@spotify.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (35,23,2,'Zachery Barrar','Student','zbarrary@discovery.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (37,2,1,'Fraser Geke','Student','fgeke10@qq.com');
-INSERT INTO user(user_id,university_id,country_id,name,role,email) VALUES (38,35,7,'Tasha Lyddiard','Student','tlyddiard11@i2i.jp');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (1,15,'Kacey Ivons','Student','kivons0@blogtalkradio.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (2,23,'Ahmed Jerche','Student','ajerche1@dot.gov');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (3,1,'Nessy Satchell','Student','nsatchell2@bloomberg.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (14,36,'Venus Landy','Student','vlandyd@domainmarket.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (18,25,'Leah McPike','Student','lmcpikeh@multiply.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (21,5,'Shantee Tippings','Student','stippingsk@tumblr.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (23,35,'Gar Carnalan','Student','gcarnalanm@simplemachines.org');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (26,13,'Thomasine Keasey','Student','tkeaseyp@cornell.edu');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (27,27,'Angelia Bernette','Student','abernetteq@wsj.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (29,14,'Lucias Rumsby','Student','lrumsbys@xrea.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (31,19,'Chen Pomphrett','Student','cpomphrettu@spotify.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (35,2,'Zachery Barrar','Student','zbarrary@discovery.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (37,1,'Fraser Geke','Student','fgeke10@qq.com');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (38,7,'Tasha Lyddiard','Student','tlyddiard11@i2i.jp');
 
 -- Housing listings
 INSERT INTO listing(listing_id,title,country_id,associated_university_id,user_id,price,property_type,city_name) VALUES (1,'Charming Parisian House Near City Centre',10,NULL,9,2600,'House','Paris');

@@ -27,7 +27,7 @@ if rated:
 
     col1, col2, col3 = st.columns([1, 1, 4])
     with col1:
-        st.metric("Average Rating", f"{avg} / 5")
+        st.metric("Average Rating", f"{avg} /5.0")
     with col2:
         st.metric("Total Reviews", len(reviews))
 

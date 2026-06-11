@@ -13,19 +13,24 @@ with col1:
     country_filter = st.selectbox("Country", 
                                 options=["All"] + [c['country_name'] for c in 
                                         requests.get('http://web-api:4000/housing/country').json()])
+city_params = {}
+if country_filter != "All":
+    city_params["country_name"] = country_filter
+
 with col2:
     property_filter = st.selectbox("Property Type", 
                                 options=["All", "House", "Apartment", "Studio Apartment", "Townhouse"])
 with col3:
     price_filter = st.number_input("Max Price (€)", 
-                                   min_value=0, max_value=4000, value=4000, step=100)
+                                   min_value=0, max_value=3000, value=3000, step=100)
 with col4:
     university_filter = st.selectbox("Associated Uni", 
                                 options=["All"] + [u['university_name'] for u 
                                 in requests.get('http://web-api:4000/housing/university').json()])
 with col5:
     city_filter = st.selectbox("City", options=["All"] + [c['city_name'] for c
-                                in requests.get('http://web-api:4000/housing/listing/cities').json()])
+                                in requests.get('http://web-api:4000/housing/listing/cities', params = city_params).json()])
+
 
 params = {}
 if country_filter != "All":
@@ -40,6 +45,18 @@ if university_filter != "All":
     params["university"] = university_filter
 
 listings = requests.get('http://web-api:4000/housing/listing', params=params).json()
+
+for listing in listings:
+    reviews = requests.get(
+        f"http://web-api:4000/housing/reviews",
+        params={"listing_id": listing['listing_id']}
+    ).json()
+    total = sum(int(r['rating']) for r in reviews if r['rating'] is not None)
+    num = sum(1 for r in reviews if r['rating'] is not None)
+    listing['avg_rating'] = round(total / num, 2) if num > 0 else 0
+
+listings.sort(key=lambda x: x['avg_rating'], reverse=True)
+
 
 if not listings:
     st.info("No listings found.")

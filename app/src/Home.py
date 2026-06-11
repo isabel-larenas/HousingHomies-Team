@@ -47,8 +47,8 @@ st.write('#### Select a user to log in as')
 # For each of the user personas for which we are implementing
 # functionality, we put a button on the screen that the user
 # can click to MIMIC logging in as that mock user.
-col1, col2 = st.columns([1, 2])
 
+col1, col2, col3 = st.columns(3)
 
 #retrieve full list of students
 response_students = requests.get('http://web-api:4000/housing/user', params={'role': 'Student'})
@@ -56,14 +56,21 @@ students = response_students.json()
 
 #dropdown menu
 with col1:
-    student_options = {f"{s['name']}": s for s in students}
-    selected_name_student = st.selectbox('Select a user', options=list(student_options.keys()),index=None,
-                                placeholder="Select user", label_visibility='collapsed')
+    with st.container(border=True, height=350):
+        st.subheader('Student 🧑‍🎓')
+        st.write('')
+        st.write('')
+        st.write('')
+        st.write('')
+
+        student_options = {f"{s['name']}": s for s in students}
+        selected_name_student = st.selectbox('Select a user', options=list(student_options.keys()),index=None,
+                                    placeholder="Select user", label_visibility='collapsed')
+        student_login = st.button("Login", type='primary', use_container_width=True, key='student')
 
 
-with col2:
-    student_login = st.button("Login as a Student", type='primary', use_container_width=True)
-    st.write()
+   
+
 
 if student_login:
     if selected_name_student is None:
@@ -85,15 +92,17 @@ response_agents_re = requests.get('http://web-api:4000/housing/user',
 re_agents = response_agents_re.json()
 
 #dropdown menu
-with col1:
-    agent_options_re = {f"{a['name']}": a for a in re_agents}
-    selected_name_agent_re = st.selectbox('Select a user', options=list(agent_options_re.keys()),index=None,
-                                placeholder="Select user", label_visibility='collapsed')
-
-
 with col2:
-    rea_login = st.button('Login as a Real Estate Agent', type='primary', use_container_width=True)
-    st.write()
+    with st.container(border=True, height=350):
+        st.subheader('Real Estate Agent 🏠')
+        st.write('')
+        st.write('')
+
+        agent_options_re = {f"{a['name']}": a for a in re_agents}
+        selected_name_agent_re = st.selectbox('Select a user', options=list(agent_options_re.keys()),index=None,
+                                    placeholder="Select user", label_visibility='collapsed')
+        rea_login = st.button('Login', type='primary', use_container_width=True,key='rea')
+
 
 if rea_login:
     if selected_name_agent_re is None:
@@ -113,14 +122,15 @@ if rea_login:
 response_ga = requests.get('http://web-api:4000/housing/user', params={'role': 'Government Agency'})
 agents_ga = response_ga.json()
 
-#dropdown menu
-with col1:
-    agent_options_ga = {f"{a['name']}": a for a in agents_ga}
-    selected_name_ga = st.selectbox('Select a user', options=list(agent_options_ga.keys()),index=None,
-                                placeholder="Select user", label_visibility='collapsed')
+# #dropdown menu
+with col3:
+    with st.container(border=True, height = 350):
+        st.subheader('Government Agency Manager 🇪🇺')
+        agent_options_ga = {f"{a['name']}": a for a in agents_ga}
+        selected_name_ga = st.selectbox('Select a user', options=list(agent_options_ga.keys()),index=None,
+                                    placeholder="Select user", label_visibility='collapsed')
+        ga_login = st.button('Login', type='primary', use_container_width=True, key= 'ga')
 
-with col2:
-    ga_login = st.button('Login as a Government Agency Manager', type='primary', use_container_width=True)
 
 if ga_login:
     if selected_name_ga is None:
