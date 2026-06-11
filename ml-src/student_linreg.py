@@ -129,7 +129,7 @@ def predict(crime, noise, pollution, hpi, is_rural, is_towns):
     scaler_std = parse(db_row['scaler_std'])
 
     # all country predictions
-    df_latest = (                          # 1. was df = df — can't reassign global
+    df_latest = (
         df.sort_values('year', ascending=False)
         .groupby('geo', as_index=False)
         .first()
@@ -171,13 +171,24 @@ def predict(crime, noise, pollution, hpi, is_rural, is_towns):
             'predicted_score': round(adjusted_score, 2),
         })
 
-    X_input = np.array([c_dict[col] for col in cols]).astype(float)  # 3. was input_dict, cols
+
+    X_input = np.array([c_dict[col] for col in cols]).astype(float)
     X_scaled = (X_input - scaler_mean) / scaler_std
     input_array = np.concatenate([[1.0], X_scaled])
     prediction = float(np.dot(b, input_array))
 
+    # to normalize the scores to be more interpretable
+    scores = [r['predicted_score'] for r in results]
+    min_s = min(scores)
+    max_s = max(scores)
+
+    for r in results:
+        # stretch to 1-10 scale
+        r['predicted_score'] = round(1 + 9 * (r['predicted_score'] - min_s) / (max_s - min_s), 2)
+
+
     results.append({
-        'geo': r['geo'],              # 4. was row_data
+        'geo': r['geo'],
         'predicted_score': round(prediction, 2),
     })
 
