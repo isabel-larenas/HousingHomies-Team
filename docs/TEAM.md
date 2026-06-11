@@ -3,7 +3,13 @@
 Below is a recap of each member's **major contributions** to the project.
 
 ## Geo Thatch
-- todo
+- Created the SQL tables and the mock data for university, user, listing, reviews, favorites, and funding tables. Inserted into 01housing_db.sql and 02housing_db.sql.
+- Created API routes for listings, reviews, housing (includes country, cities, and university), and funding. 
+- Built out the real estate agent persona pages (view_listings_rea, market_dashboard, add_listing)
+- Built the initial design for student listings and reviews
+- Add-review page with all CRUD features
+- Add-listing page with all CRUD features
+- Wrote and designed nav.py, home.py, and about.py 
 
 ## Isabel Larenas
 - Created and deployed the **second machine-learning model** (linear regression) for the government agency user persona
