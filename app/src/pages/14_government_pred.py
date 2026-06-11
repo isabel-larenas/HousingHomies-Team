@@ -111,15 +111,22 @@ color_map = {row["geo"]: get_color(row["predicted_deprivation"]) for _, row in d
 try:
     geo_data = requests.get(GEOJSON_URL).json()
     m = folium.Map(location=[54.5260, 15.2551], zoom_start=4)
+    
+    NAME_MAP = {"Czech Republic": "Czechia",
+                        "Turkey": "Turkiye",
+                        "The former Yugoslav Republic of Macedonia": "North Macedonia",
+                        }
 
     def style_function(feature):
-        name = feature['properties'].get('NAME', '')
+        raw_name = feature['properties'].get('NAME', '')
+        name = NAME_MAP.get(raw_name, raw_name)
         return {
             'fillColor': color_map.get(name, '#cccccc'),
             'color': 'black',
             'weight': 1,
             'fillOpacity': 0.7,
         }
+
 
     folium.GeoJson(
         geo_data,
