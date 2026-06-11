@@ -5,7 +5,7 @@ from PIL import Image
 
 
 
-st.set_page_config(layout='wide')
+st.set_page_config(page_title="About", layout='wide')
 
 SideBarLinks(show_home = True)
 

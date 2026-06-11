@@ -11,7 +11,7 @@ import matplotlib.colors as mcolors
 from streamlit_folium import st_folium
 from modules.nav import SideBarLinks
 
-st.set_page_config(layout = 'wide')
+st.set_page_config(page_title="Risk Heatmap", layout = 'wide')
 SideBarLinks()
 
 st.markdown("""

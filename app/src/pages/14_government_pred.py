@@ -13,7 +13,7 @@ from modules.nav import SideBarLinks
 
 API_BASE = "http://web-api:4000/housing"
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Housing Deprivation Predictor", layout="wide")
 SideBarLinks()
 
 st.title("🏚️ Housing Deprivation Predictor")

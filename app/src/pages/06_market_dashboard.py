@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
 from modules.nav import SideBarLinks
-st.set_page_config(layout='wide')
+st.set_page_config(page_title="Market Dashboard", layout='wide')
 
 # Initialize sidebar
 SideBarLinks()

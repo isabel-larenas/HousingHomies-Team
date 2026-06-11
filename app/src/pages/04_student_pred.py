@@ -9,6 +9,8 @@ import plotly.express as px
 from modules.nav import SideBarLinks
 import requests
 
+st.set_page_config(page_title="Housing Satisfaction Predictor", layout="wide")
+
 try:
     if 'model_trained' not in st.session_state:
         requests.post("http://web-api:4000/housing/student/train")

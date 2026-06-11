@@ -4,7 +4,7 @@ import streamlit as st
 from modules.nav import SideBarLinks
 import requests
 
-st.set_page_config(layout='wide')
+st.set_page_config(page_title="View Reviews", layout='wide')
 
 listing_id = st.session_state.get("listing_id")
 listing_title = st.session_state.get("title")

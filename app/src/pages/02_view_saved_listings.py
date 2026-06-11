@@ -4,7 +4,7 @@ import streamlit as st
 import requests
 from modules.nav import SideBarLinks
 
-st.set_page_config(layout='wide')
+st.set_page_config(page_title="View Saved Listings", layout='wide')
 SideBarLinks()
 
 st.header('Saved Listings')

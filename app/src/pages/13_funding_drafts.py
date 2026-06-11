@@ -6,7 +6,7 @@ import requests
 import pandas as pd
 from modules.nav import SideBarLinks
 
-st.set_page_config(layout = 'wide')
+st.set_page_config(page_title="My Funding Drafts", layout = 'wide')
 SideBarLinks()
 
 if st.session_state.get("draft_saved"):

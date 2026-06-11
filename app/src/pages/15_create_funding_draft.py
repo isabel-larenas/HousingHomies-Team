@@ -5,7 +5,7 @@ import streamlit as st
 import requests
 from modules.nav import SideBarLinks
 
-st.set_page_config(layout = 'wide')
+st.set_page_config(page_title="Create Funding Draft", layout = 'wide')
 SideBarLinks()
 
 st.title("Create Funding Draft")

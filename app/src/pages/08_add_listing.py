@@ -7,6 +7,8 @@ import pandas as pd
 from modules.nav import SideBarLinks
 import plotly.express as px
 
+st.set_page_config(page_title="Create or Edit Listing", layout="wide")
+
 SideBarLinks()
 
 
