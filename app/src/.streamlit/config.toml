@@ -21,5 +21,8 @@ secondaryBackgroundColor = "#EAE5E2"
 font = "sans serif"
 baseFontSize = 22
 
+[theme.sidebar]
+backgroundColor = "#b0c3d4"
+
 [server]
 runOnSave = true
