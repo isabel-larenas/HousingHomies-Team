@@ -160,11 +160,17 @@ def get_cities():
     try:
         query = """
             SELECT DISTINCT listing.city_name
-            FROM listing
-            ORDER BY listing.city_name ASC
+            FROM listing JOIN country ON listing.country_id = country.country_id
+            WHERE 1=1
         """
+        params = []
+        country = request.args.get("country_name")
+        if country:
+            query += " AND country.country_name = %s"
+            params.append(country)
+        
         with get_db().cursor(dictionary=True) as cursor:
-            cursor.execute(query)
+            cursor.execute(query, params)
             cities = cursor.fetchall()
 
         return jsonify(cities), 200

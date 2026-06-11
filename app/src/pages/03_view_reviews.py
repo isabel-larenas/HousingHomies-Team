@@ -25,6 +25,13 @@ st.header(f'Reviews on \'{listing_title}\'')
 reviews = requests.get(
     f'http://web-api:4000/housing/reviews?listing_id={listing_id}').json()
 
+if st.button('Return to listings'):
+    if st.session_state["role"] == "Real Estate Agent":
+        st.switch_page('pages/07_view_listings_rea.py')
+    if st.session_state["role"] == "Student":
+        st.switch_page('pages/01_view_listings_student.py')
+
+
 for review in reviews:
     
     if review['rating'] is None:
