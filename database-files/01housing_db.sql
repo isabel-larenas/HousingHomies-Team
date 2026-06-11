@@ -37,7 +37,6 @@ CREATE TABLE university (
 
 CREATE TABLE user (
     user_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    university_id INTEGER,
     country_id INTEGER,
     name VARCHAR(100),
     role VARCHAR(50),
@@ -45,8 +44,7 @@ CREATE TABLE user (
     max_budget DECIMAL,
     max_distance_km DECIMAL,
 
-    CONSTRAINT fk_user_country FOREIGN KEY (country_id) REFERENCES country (country_id),
-    CONSTRAINT fk_user_uni FOREIGN KEY (university_id) REFERENCES university (university_id)
+    CONSTRAINT fk_user_country FOREIGN KEY (country_id) REFERENCES country (country_id)
 );
 
 CREATE TABLE listing (
@@ -58,6 +56,8 @@ CREATE TABLE listing (
     price DECIMAL,
     property_type VARCHAR(50),
     city_name VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_listing_country FOREIGN KEY (country_id) REFERENCES country (country_id),
     CONSTRAINT fk_listing_uni FOREIGN KEY (associated_university_id) REFERENCES university (university_id),
@@ -67,10 +67,14 @@ CREATE TABLE listing (
 CREATE TABLE reviews (
     review_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     listing_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
     rating INTEGER,
     comment VARCHAR(2000),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_reviews_listing FOREIGN KEY (listing_id) REFERENCES listing (listing_id)
+    CONSTRAINT fk_reviews_listing FOREIGN KEY (listing_id) REFERENCES listing (listing_id),
+    CONSTRAINT fk_reviews_users FOREIGN KEY (user_id) REFERENCES user (user_id)
 );
 
 CREATE TABLE favorites (
@@ -103,6 +107,8 @@ CREATE TABLE funding_draft (
     demographics_targeted VARCHAR(255),
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
     FOREIGN KEY (country_id) REFERENCES country(country_id)
 );
 

@@ -48,7 +48,7 @@ hpi_countries = sorted(set(row["country_name"] for row in hpi_data))
 
 col1, col2 = st.columns(2)
 with col1:
-    with st.container(border=True):
+    with st.container(border=True, height = 275):
         years = sorted(set(row["year"] for row in hpi_data))
         year_filter = st.selectbox("Year", options=years, index=years.index(2025) if 2025 in years else 0, label_visibility="collapsed")
         total = 0
@@ -70,7 +70,7 @@ listing_data = requests.get(
 listing_countries = ['All'] + sorted(set(row["country_name"] for row in listing_data))
 
 with col2:
-    with st.container(border=True):
+    with st.container(border=True, height = 275):
         country = st.selectbox("Country", options=listing_countries,index=0, label_visibility="collapsed")
         total1 = 0
         num1 = 0
@@ -92,8 +92,7 @@ with col2:
 
 col1, col2 = st.columns([3, 1])
 
-with col1:
-    st.subheader("House Price Index over Time")
+
 
 with col2:
     hpi_data = requests.get(
@@ -103,6 +102,8 @@ with col2:
     hpi_countries = sorted(set(row["country_name"] for row in hpi_data))
     country_filter = st.selectbox("Country", options=hpi_countries, label_visibility="collapsed")
 
+with col1:
+    st.subheader(f"House Price Index over Time in {country_filter}")
 
 #HPI by year chart (horizontal)
 try:

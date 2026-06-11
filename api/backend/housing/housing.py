@@ -149,20 +149,25 @@ def get_university():
 #get cities
 @housing_bp.route("/listing/cities", methods=["GET"])
 def get_cities():
-    current_app.logger.info('GET /housing/listing/cities')
-    try:
-        query = """
-            SELECT DISTINCT listing.city_name
-            FROM listing
-            ORDER BY listing.city_name ASC
-        """
-        with get_db().cursor(dictionary=True) as cursor:
-            cursor.execute(query)
-            cities = cursor.fetchall()
+   current_app.logger.info('GET /housing/listing/cities')
+   try:
+       query = """
+           SELECT DISTINCT listing.city_name
+           FROM listing JOIN country ON listing.country_id = country.country_id
+           WHERE 1=1
+       """
+       params = []
+       country = request.args.get("country_name")
+       if country:
+           query += " AND country.country_name = %s"
+           params.append(country)
+      
+       with get_db().cursor(dictionary=True) as cursor:
+           cursor.execute(query, params)
+           cities = cursor.fetchall()
 
-        return jsonify(cities), 200
-    except Error as e:
-        current_app.logger.error(f'Database error in get_cities: {e}')
-        return error_response(str(e))
 
-
+       return jsonify(cities), 200
+   except Error as e:
+       current_app.logger.error(f'Database error in get_cities: {e}')
+       return error_response(str(e))
