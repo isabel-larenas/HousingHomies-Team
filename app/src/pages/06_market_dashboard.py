@@ -14,6 +14,8 @@ st.set_page_config(page_title="Market Dashboard", layout='wide')
 SideBarLinks()
 
 st.title("Market Dashboard")
+st.markdown("Here you can view various market indicators across European countries, including the House Price Index, average rent prices, and social " \
+"indicators like pollution, crime, poverty, overcrowding, and noise. Use the filters to explore trends over time and compare different countries.")
 
 if "synced" not in st.session_state:
     st.session_state.synced = False
