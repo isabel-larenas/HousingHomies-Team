@@ -25,22 +25,22 @@ st.divider()
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    with st.container(border=True, height=330):
-        st.subheader("📈 Market Dashboard")
+    with st.container(border=True, height=300):
+        st.markdown("<h3 style='text-align: center; font-size: 30px;'>📈 Market Dashboard</h3>", unsafe_allow_html=True)
         st.write("Explore European housing market trends.")
         if st.button("View Market Dashboard", use_container_width=True, type="primary"):
             st.switch_page("pages/06_market_dashboard.py")
 
 with col2:
-    with st.container(border=True, height=330):
-        st.subheader("🏘️ View Listings")
-        st.write("View and manage your listings.")
+    with st.container(border=True, height=300):
+        st.markdown("<h3 style='text-align: center; font-size: 30px;'>🏘️ View Listings</h3>", unsafe_allow_html=True)
+        st.write("View and manage available listings on EuroHome.")
         if st.button("View Listings", use_container_width=True, type="primary"):
             st.switch_page("pages/07_view_listings_rea.py")
 
 with col3:
-    with st.container(border=True, height=330):
-        st.subheader("📄 Create Listing")
-        st.write("Add a new property listing.")
-        if st.button("Create a New Listing", use_container_width=True, type="primary"):
+    with st.container(border=True, height=300):
+        st.markdown("<h3 style='text-align: center; font-size: 30px;'>📄 My Listings</h3>", unsafe_allow_html=True)
+        st.write("View, edit, or add a new property listing.")
+        if st.button("Create or Edit Listings", use_container_width=True, type="primary"):
             st.switch_page("pages/08_add_listing.py")
