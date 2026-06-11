@@ -11,6 +11,7 @@ Below is a recap of each member's **major contributions** to the project.
 - Add-listing page with all CRUD features
 - Wrote and designed nav.py, home.py, and about.py 
 
+
 ## Isabel Larenas
 - Created and deployed the **second machine-learning model** (linear regression) for the government agency user persona
     - This model **predicts housing deprivation** based on multiple socioeconomic indicators such as immigration, housing-cost overburden, GDP per capita, population density, and unemployment
@@ -22,7 +23,12 @@ Below is a recap of each member's **major contributions** to the project.
 
 
 ## Maira Padani
-- todo
+- **Government agency funding workflow**: built the government agency persona pages end-to-end, including the `funding_draft` table in `01housing_db.sql`, all draft CRUD routes in `funding.py`, and three Streamlit pages to view, manage, and create funding plans. Added success banners for save and delete actions.
+- **Route reorganization**: split `housing_routes01.py` into separate blueprint files by entity and updated `rest_entry.py` to register each one.
+- **Risk heatmap**: built the full risk heatmap page including filters, Folium map, and bar chart rankings. Handled country name mismatches between the GeoJSON source and the database. Added download buttons for the map and rankings CSV.
+- **Social indicator routes**: added the `social_indicator_stats` table and Eurostat sync routes for all six indicators. Fixed the HPI sync.
+- **Student prediction integration**: added the prediction route and connected the model on `04_student_pred.py`.
+- **Persona pages and theming**: updated all three persona home pages with consistent button card layout and EuroHome animation, applied the app theme and logo, and removed leftover test pages.
 
 ## Laasya Gattu
 - todo
