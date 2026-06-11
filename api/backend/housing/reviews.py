@@ -19,12 +19,17 @@ def get_reviews():
         
         listing_id = request.args.get("listing_id")
         rating = request.args.get("rating")
+        user_id = request.args.get("user_id")
+
         if listing_id:
             query += " AND listing_id = %s"
             params.append(listing_id)
         if rating:
             query += " AND rating = %s"
             params.append(rating)
+        if user_id:
+            query += " AND user_id = %s"
+            params.append(user_id)
 
         with get_db().cursor(dictionary=True) as cursor:
             cursor.execute(query, params)
@@ -43,18 +48,19 @@ def create_review():
     try:
         data = request.get_json()
 
-        required_fields = ["listing_id", "rating", "comment"]
+        required_fields = ["listing_id","user_id", "comment"]
         for field in required_fields:
             if field not in data:
                 return error_response(f"Missing required field: {field}", 400)
 
         query = """
-            INSERT INTO Reviews (listing_id, rating, comment)
-            VALUES (%s, %s, %s)
+            INSERT INTO reviews (listing_id, user_id, rating, comment)
+            VALUES (%s, %s, %s, %s)
         """
         with get_db().cursor(dictionary=True) as cursor:
             cursor.execute(query, (
                 data["listing_id"],
+                data["user_id"],
                 data.get("rating"),
                 data["comment"]
             ))
@@ -71,9 +77,9 @@ def create_review():
 # Update an existing reviews's information
 # Can update any field except review_id
 # Example: PUT /housing/review/1 with JSON body containing fields to update
-@reviews_bp.route("/review/<int:review_id>", methods=["PUT"])
+@reviews_bp.route("/reviews/<int:review_id>", methods=["PUT"])
 def update_review(review_id):
-    current_app.logger.info(f'PUT /housing/review/{review_id}')
+    current_app.logger.info(f'PUT /housing/reviews/{review_id}')
     try:
         data = request.get_json()
 
@@ -86,7 +92,7 @@ def update_review(review_id):
             return error_response("No valid fields to update", 400)
 
         with get_db().cursor(dictionary=True) as cursor:
-            cursor.execute("SELECT review_id FROM reviews WHERE review_id = %s", (review_id))
+            cursor.execute("SELECT review_id FROM reviews WHERE review_id = %s", (review_id,))
             if not cursor.fetchone():
                 return error_response("Review not found", 404)
 
@@ -102,20 +108,21 @@ def update_review(review_id):
 
 # Delete a review
 # Example: DELETE /housing/review/1
-@reviews_bp.route("/review/<int:review_id>", methods=["DELETE"])
+@reviews_bp.route("/reviews/<int:review_id>", methods=["DELETE"])
 def delete_review(review_id):
-    current_app.logger.info(f'DELETE /housing/review/{review_id}')
+    current_app.logger.info(f'DELETE /housing/reviews/{review_id}')
     try:
-        with get_db().cursor(dictionary=True) as cursor:
-            cursor.execute("SELECT review_id FROM reviews WHERE review_id = %s", (review_id))
+        db = get_db()
+        with db.cursor(dictionary=True) as cursor:
+            cursor.execute("SELECT review_id FROM reviews WHERE review_id = %s", (review_id,))
             if not cursor.fetchone():
                 return error_response("Review not found", 404)
 
-            cursor.execute("DELETE FROM reviews WHERE review_id = %s", (review_id))
-
-        get_db().commit()
+            cursor.execute("DELETE FROM reviews WHERE review_id = %s", (review_id,))
+        db.commit()
         current_app.logger.info(f'Deleted review id={review_id}')
         return jsonify({"message": "Review deleted successfully"}), 200
     except Error as e:
         current_app.logger.error(f'Database error in delete_review: {e}')
         return error_response(str(e))
+    

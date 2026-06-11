@@ -67,10 +67,12 @@ CREATE TABLE listing (
 CREATE TABLE reviews (
     review_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     listing_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
     rating INTEGER,
     comment VARCHAR(2000),
 
-    CONSTRAINT fk_reviews_listing FOREIGN KEY (listing_id) REFERENCES listing (listing_id)
+    CONSTRAINT fk_reviews_listing FOREIGN KEY (listing_id) REFERENCES listing (listing_id),
+    CONSTRAINT fk_reviews_users FOREIGN KEY (user_id) REFERENCES user (user_id)
 );
 
 CREATE TABLE favorites (
