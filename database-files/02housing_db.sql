@@ -102,7 +102,7 @@ INSERT INTO university(university_id,country_id,university_name,city_name,addres
 INSERT INTO university(university_id,country_id,university_name,city_name,address) VALUES (50,30,'University College London','London','556 Weeping Birch Point');
 
 -- Real estate agents
-INSERT INTO user(user_id,country_id,name,role,email) VALUES (6,28,'Sonnnie Tucker','Real Estate Agent','stucker5@amazon.co.uk');
+INSERT INTO user(user_id,country_id,name,role,email) VALUES (6,28,'Sonnnie Attucker','Real Estate Agent','stucker5@amazon.co.uk');
 INSERT INTO user(user_id,country_id,name,role,email) VALUES (7,12,'Mimi Holtham','Real Estate Agent','mholtham6@home.pl');
 INSERT INTO user(user_id,country_id,name,role,email) VALUES (9,9,'Eva Macey','Real Estate Agent','emacey8@blogs.com');
 INSERT INTO user(user_id,country_id,name,role,email) VALUES (10,8,'Gretchen Sprackling','Real Estate Agent','gsprackling9@wunderground.com');

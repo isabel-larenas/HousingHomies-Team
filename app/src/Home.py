@@ -63,13 +63,11 @@ with col1:
         st.write('')
         st.write('')
 
-        student_options = {f"{s['name']}": s for s in students}
+        student_options = {f"{s['name']}": s for s in sorted(students, key=lambda s: s['name'].split()[-1])}
         selected_name_student = st.selectbox('Select a user', options=list(student_options.keys()),index=None,
                                     placeholder="Select user", label_visibility='collapsed')
         student_login = st.button("Login", type='primary', use_container_width=True, key='student')
 
-
-   
 
 
 if student_login:
@@ -98,7 +96,7 @@ with col2:
         st.write('')
         st.write('')
 
-        agent_options_re = {f"{a['name']}": a for a in re_agents}
+        agent_options_re = {f"{s['name']}": s for s in sorted(re_agents, key=lambda s: s['name'].split()[-1])}
         selected_name_agent_re = st.selectbox('Select a user', options=list(agent_options_re.keys()),index=None,
                                     placeholder="Select user", label_visibility='collapsed')
         rea_login = st.button('Login', type='primary', use_container_width=True,key='rea')
@@ -126,7 +124,7 @@ agents_ga = response_ga.json()
 with col3:
     with st.container(border=True, height = 350):
         st.subheader('Government Agency Manager 🇪🇺')
-        agent_options_ga = {f"{a['name']}": a for a in agents_ga}
+        agent_options_ga = {f"{s['name']}": s for s in sorted(agents_ga, key=lambda s: s['name'].split()[-1])}
         selected_name_ga = st.selectbox('Select a user', options=list(agent_options_ga.keys()),index=None,
                                     placeholder="Select user", label_visibility='collapsed')
         ga_login = st.button('Login', type='primary', use_container_width=True, key= 'ga')
