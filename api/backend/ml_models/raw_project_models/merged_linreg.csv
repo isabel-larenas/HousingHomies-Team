@@ -101,7 +101,7 @@ Total,Total,Cyprus,2017,0.9,Total,Age in completed years,22458.0,Total,Total,2.8
 Total,Total,Cyprus,2018,1.1,Total,Age in completed years,25740.0,Total,Total,2.0,24300.0,94.4,Percentage of total population,5.7,538.08,138510.0,188.8
 Total,Total,Cyprus,2019,1.9,Total,Age in completed years,27553.0,Total,Total,2.2,25390.0,95.7,Percentage of total population,4.9,468.93000000000006,124411.00000000001,210.54000000000002
 Total,Total,Cyprus,2020,1.7,Total,Age in completed years,22850.0,Total,Total,1.9,24240.0,95.7,Percentage of total population,5.2,497.64000000000004,126048.0,181.82999999999998
-Total,Total,Cyprus,2023,1.2,Total,Age in completed years,40761.0,Total,Total,2.6,28860.0,104.0,Percentage of total population,4.2,436.8,121212.0,270.40000000000003
+Total,Total,Cyprus,2023,1.2,Total,Age in completed years,40761.0,Total,Total,2.6,28860.0,104.0,Percentage of total population,4.1,426.4,118325.99999999999,270.40000000000003
 Total,Total,Latvia,2014,16.6,Total,Age in completed years,10365.0,Total,Total,9.6,11470.0,32.0,Percentage of total population,7.2,230.4,82584.0,307.2
 Total,Total,Latvia,2015,15.5,Total,Age in completed years,9479.0,Total,Total,8.1,12010.0,31.8,Percentage of total population,6.7,213.06,80467.0,257.58
 Total,Total,Latvia,2016,14.6,Total,Age in completed years,8345.0,Total,Total,7.0,12430.0,31.0,Percentage of total population,6.6,204.6,82038.0,217.0
@@ -315,7 +315,7 @@ Below 60%,Total,Cyprus,2017,3.9,Total,Age in completed years,22458.0,Total,Total
 Below 60%,Total,Cyprus,2018,3.2,Total,Age in completed years,25740.0,Total,Total,6.6,24300.0,94.4,Percentage of total population,5.7,538.08,138510.0,623.04
 Below 60%,Total,Cyprus,2019,5.0,Total,Age in completed years,27553.0,Total,Total,10.0,25390.0,95.7,Percentage of total population,4.9,468.93000000000006,124411.00000000001,957.0
 Below 60%,Total,Cyprus,2020,3.2,Total,Age in completed years,22850.0,Total,Total,6.8,24240.0,95.7,Percentage of total population,5.2,497.64000000000004,126048.0,650.76
-Below 60%,Total,Cyprus,2023,2.9,Total,Age in completed years,40761.0,Total,Total,7.9,28860.0,104.0,Percentage of total population,4.2,436.8,121212.0,821.6
+Below 60%,Total,Cyprus,2023,2.9,Total,Age in completed years,40761.0,Total,Total,7.9,28860.0,104.0,Percentage of total population,4.1,426.4,118325.99999999999,821.6
 Below 60%,Total,Latvia,2014,27.3,Total,Age in completed years,10365.0,Total,Total,32.5,11470.0,32.0,Percentage of total population,7.2,230.4,82584.0,1040.0
 Below 60%,Total,Latvia,2015,27.3,Total,Age in completed years,9479.0,Total,Total,25.9,12010.0,31.8,Percentage of total population,6.7,213.06,80467.0,823.62
 Below 60%,Total,Latvia,2016,24.2,Total,Age in completed years,8345.0,Total,Total,25.2,12430.0,31.0,Percentage of total population,6.6,204.6,82038.0,781.1999999999999
@@ -529,7 +529,7 @@ Above 60%,Total,Cyprus,2017,0.4,Total,Age in completed years,22458.0,Total,Total
 Above 60%,Total,Cyprus,2018,0.8,Total,Age in completed years,25740.0,Total,Total,1.2,24300.0,94.4,Percentage of total population,5.7,538.08,138510.0,113.28
 Above 60%,Total,Cyprus,2019,1.4,Total,Age in completed years,27553.0,Total,Total,0.8,25390.0,95.7,Percentage of total population,4.9,468.93000000000006,124411.00000000001,76.56
 Above 60%,Total,Cyprus,2020,1.4,Total,Age in completed years,22850.0,Total,Total,1.1,24240.0,95.7,Percentage of total population,5.2,497.64000000000004,126048.0,105.27000000000001
-Above 60%,Total,Cyprus,2023,1.0,Total,Age in completed years,40761.0,Total,Total,1.7,28860.0,104.0,Percentage of total population,4.2,436.8,121212.0,176.79999999999998
+Above 60%,Total,Cyprus,2023,1.0,Total,Age in completed years,40761.0,Total,Total,1.7,28860.0,104.0,Percentage of total population,4.1,426.4,118325.99999999999,176.79999999999998
 Above 60%,Total,Latvia,2014,13.7,Total,Age in completed years,10365.0,Total,Total,3.5,11470.0,32.0,Percentage of total population,7.2,230.4,82584.0,112.0
 Above 60%,Total,Latvia,2015,12.1,Total,Age in completed years,9479.0,Total,Total,3.0,12010.0,31.8,Percentage of total population,6.7,213.06,80467.0,95.4
 Above 60%,Total,Latvia,2016,11.9,Total,Age in completed years,8345.0,Total,Total,1.9,12430.0,31.0,Percentage of total population,6.6,204.6,82038.0,58.9
