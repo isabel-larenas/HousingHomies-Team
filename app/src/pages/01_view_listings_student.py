@@ -18,7 +18,7 @@ with col2:
                                 options=["All", "House", "Apartment", "Studio Apartment", "Townhouse"])
 with col3:
     price_filter = st.number_input("Max Price (€)", 
-                                   min_value=0, max_value=4000, value=4000, step=100)
+                                   min_value=0, max_value=3000, value=3000, step=100)
 with col4:
     university_filter = st.selectbox("Associated Uni", 
                                 options=["All"] + [u['university_name'] for u 
