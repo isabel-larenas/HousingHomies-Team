@@ -73,13 +73,13 @@ else:
                     new_description = st.text_area("Description", value = draft.get("description", ""))
                     new_indicators = st.multiselect(
                         "Indicators Targeted",
-                        ["Pollution", "Crime, Violence, and Vandalism",
+                        ["All Indicators", "Pollution", "Crime, Violence, and Vandalism",
                         "Poverty", "Overcrowding", "Noise", "House Price Index", "Under-occupied"],
                         default = [i.strip() for i in draft.get("indicators_targeted", "").split(",") if i.strip()]
                     )
                     new_demographics = st.multiselect(
                         "Demographics Targeted",
-                        ["Students", "Low Income", "Elderly", "Families"],
+                        ["All Demographics", "Students", "Low Income", "Elderly", "Families"],
                         default = [d.strip() for d in draft.get("demographics_targeted", "").split(",") if d.strip()]
                     )
                     save = st.form_submit_button("Save Changes")
