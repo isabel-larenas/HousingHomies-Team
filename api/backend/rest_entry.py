@@ -45,4 +45,11 @@ def create_app():
     app.register_blueprint(stats_bp, url_prefix = "/housing")
     app.register_blueprint(prediction_bp, url_prefix = "/housing")
 
+    # Used by the docker-compose healthcheck to confirm the Flask process
+    # is up and serving requests (no route existed at "/" before this,
+    # which made the healthcheck 404 and fail unconditionally).
+    @app.route("/health")
+    def health():
+        return {"status": "ok"}, 200
+
     return app
