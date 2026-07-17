@@ -27,7 +27,9 @@ services:
       - api
 
   api:
-    build: ./api
+    build:
+      context: .
+      dockerfile: api/Dockerfile
     hostname: web-api
     environment:
       - SECRET_KEY=${SECRET_KEY}
